@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
-import Navbar from './components/Navbar';
 
-const VideoConverter: React.FC = () => {
+import Navbar from './components/Navbar';
+import Modal from './components/Modal';
+import Loading from './components/Loading';
+
+const VideoConverter = () => {
+
+  const [open, setOpen] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [videoUrl, setVideoUrl] = useState<string>();
   const [convertedUrl, setConvertedUrl] = useState<string>();
 
@@ -12,6 +18,10 @@ const VideoConverter: React.FC = () => {
     try {
       const response = await axios.post('http://192.168.143.196:5000/api/convert', { videoUrl });
       setConvertedUrl(response?.data?.convertedUrl);
+      if (response?.data?.convertedUrl) {
+        setLoading(false)
+        setOpen(true)
+      }
     } catch (error) {
       console.error('Failed to convert video:', error);
     }
@@ -22,6 +32,7 @@ const VideoConverter: React.FC = () => {
   };
 
   const handleConvertClick = () => {
+    setLoading(true)
     convertVideo().catch((error) => console.log(error));
   };
 
@@ -39,21 +50,24 @@ const VideoConverter: React.FC = () => {
           onChange={handleInputChange}
           placeholder="Enter Youtube video URL"
         />
-        <button
-          className="px-4 py-2 mb-4 text-white bg-red-700 rounded-lg"
-          onClick={handleConvertClick}
-        >
-          Convert
-        </button>
+        {
+          loading === false ?
+            <button
+              className="px-4 py-2 mb-4 text-white bg-red-700 rounded-lg"
+              onClick={handleConvertClick}
+            >
+              Convert
+            </button>
+            :
+            <Loading />
+        }
       </div>
-      {convertedUrl && (
-        <div>
-          <p className="text-white">Converted video:</p>
+      {convertedUrl && loading === false && (
+        <Modal open={open} onClose={() => setOpen(false)}>
           <ReactPlayer url={convertedUrl} controls />
-        </div>
+        </Modal>
       )}
     </div>
-
   );
 };
 
