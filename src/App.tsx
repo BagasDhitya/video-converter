@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
+import Sweet from 'sweetalert2'
 
 import Navbar from './components/Navbar';
 import Modal from './components/Modal';
@@ -23,7 +24,13 @@ const VideoConverter = () => {
         setOpen(true)
       }
     } catch (error) {
-      console.error('Failed to convert video:', error);
+      setLoading(false)
+      Sweet.fire({
+        icon: "error",
+        title: "Failed Converting",
+        text: "Something went wrong, please try again!",
+        confirmButtonText: "OK"
+      })
     }
   };
 

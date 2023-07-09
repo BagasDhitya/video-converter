@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import ytdl from "ytdl-core";
 
+const IP_ADDRESS = "192.168.143.196";
+const PORT = 5000;
 const app = express();
 
 app.use(cors());
@@ -24,8 +26,6 @@ app.post("/api/convert", async (req, res) => {
   }
 });
 
-const IP_ADDRESS = "192.168.143.196";
-const PORT = 5000;
 app.listen(PORT, IP_ADDRESS, () => {
   console.log(`Server running on http://${IP_ADDRESS}:${PORT}`);
 });
