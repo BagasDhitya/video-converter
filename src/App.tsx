@@ -28,6 +28,9 @@ const VideoConverter: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-start w-screen min-h-screen bg-white">
       <Navbar />
+      <div className='mt-20'>
+        <p className='text-red-700 text-center font-bold text-xl'>Your Ultimate Conversion App {<br />} for Easy Downloads!</p>
+      </div>
       <div className="my-auto flex flex-col gap-y-5">
         <input
           className="p-2 mb-4 rounded-lg bg-white text-black shadow w-80"
