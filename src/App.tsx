@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
+import Navbar from './components/Navbar';
 
 const VideoConverter: React.FC = () => {
   const [videoUrl, setVideoUrl] = useState<string>();
@@ -9,8 +10,8 @@ const VideoConverter: React.FC = () => {
   const convertVideo = async () => {
     console.log(videoUrl);
     try {
-      const response = await axios.post('http://192.168.143.196:5000/api/convert', { videoUrl })
-      setConvertedUrl(response?.data?.convertedUrl)
+      const response = await axios.post('http://192.168.143.196:5000/api/convert', { videoUrl });
+      setConvertedUrl(response?.data?.convertedUrl);
     } catch (error) {
       console.error('Failed to convert video:', error);
     }
@@ -21,26 +22,35 @@ const VideoConverter: React.FC = () => {
   };
 
   const handleConvertClick = () => {
-    convertVideo()
-      .catch((error) => console.log(error))
+    convertVideo().catch((error) => console.log(error));
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={videoUrl}
-        onChange={handleInputChange}
-        placeholder="Enter Youtube video URL"
-      />
-      <button onClick={handleConvertClick}>Convert</button>
+    <div className="flex flex-col items-center justify-start w-screen min-h-screen bg-white">
+      <Navbar />
+      <div className="my-auto flex flex-col gap-y-5">
+        <input
+          className="p-2 mb-4 rounded-lg bg-white text-black shadow w-80"
+          type="text"
+          value={videoUrl}
+          onChange={handleInputChange}
+          placeholder="Enter Youtube video URL"
+        />
+        <button
+          className="px-4 py-2 mb-4 text-white bg-red-700 rounded-lg"
+          onClick={handleConvertClick}
+        >
+          Convert
+        </button>
+      </div>
       {convertedUrl && (
         <div>
-          <p>Converted video:</p>
+          <p className="text-white">Converted video:</p>
           <ReactPlayer url={convertedUrl} controls />
         </div>
       )}
     </div>
+
   );
 };
 
