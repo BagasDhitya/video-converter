@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
@@ -36,7 +34,6 @@ const VideoConverter: React.FC = () => {
         placeholder="Enter Youtube video URL"
       />
       <button onClick={handleConvertClick}>Convert</button>
-
       {convertedUrl && (
         <div>
           <p>Converted video:</p>

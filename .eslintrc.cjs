@@ -27,4 +27,8 @@ module.exports = {
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
   },
+  eslintConfig: {
+    include: ["src/**/*.ts"],
+    exclude: ["tailwind.config.js", "server.js"],
+  },
 };
