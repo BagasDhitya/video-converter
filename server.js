@@ -1,9 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import express from "express";
 import cors from "cors";
 import ytdl from "ytdl-core";
@@ -33,5 +27,5 @@ app.post("/api/convert", async (req, res) => {
 const IP_ADDRESS = "192.168.143.196";
 const PORT = 5000;
 app.listen(PORT, IP_ADDRESS, () => {
-  console.log(`Server berjalan di http://${IP_ADDRESS}:${PORT}`);
+  console.log(`Server running on http://${IP_ADDRESS}:${PORT}`);
 });
